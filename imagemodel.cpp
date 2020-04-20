@@ -130,6 +130,26 @@ void ImageModel::save(QJsonArray& array) const
     }
 }
 
+void ImageModel::load(const QJsonArray& array)
+{
+    beginResetModel();
+    for(auto ref : array)
+    {
+        auto obj= ref.toObject();
+        ImageInfo info;
+        auto bin= obj["bin"].toString();
+        QByteArray array= QByteArray::fromBase64(bin.toLocal8Bit());
+
+        info.pixmap.loadFromData(array);
+
+        info.key= obj["key"].toString();
+        info.isBackground= obj["isBg"].toBool();
+        info.filename= obj["filename"].toString(); // NOTICE hide this field from network
+        m_data.push_back(info);
+    }
+    endResetModel();
+}
+
 bool ImageModel::insertImage(const QPixmap& pix, const QString& key, const QString& filename, bool isBg)
 {
     auto rect= pix.rect();
@@ -259,7 +279,7 @@ void ImageModel::removeImage(int i)
     emit internalDataChanged();
 }
 
-#ifndef RCSE
+/*#ifndef RCSE
 void ImageModel::fill(NetworkMessageWriter& msg) const
 {
     msg.uint32(static_cast<unsigned int>(m_data.size()));
@@ -291,4 +311,4 @@ void ImageModel::read(NetworkMessageReader& msg)
         m_data.push_back(info);
     }
 }
-#endif
+#endif*/

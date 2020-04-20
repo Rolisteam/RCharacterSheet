@@ -27,10 +27,6 @@
 #include "field.h"
 
 class Section;
-#ifndef RCSE
-#include "network/networkmessagereader.h"
-#include "network/networkmessagewriter.h"
-#endif
 #include "charactersheetitem.h"
 
 /**
@@ -57,17 +53,13 @@ public:
      * @brief save
      * @param json
      */
-    virtual void save(QJsonObject& json);
+    virtual void save(QJsonObject& json) const;
     /**
      * @brief load
      * @param json
      */
-    virtual void load(QJsonObject& json);
+    virtual void load(const QJsonObject& json);
 
-#ifndef RCSE
-    void fill(NetworkMessageWriter& message);
-    void read(NetworkMessageReader& msg);
-#endif
     /**
      * @brief getTitle
      * @return
@@ -124,7 +116,7 @@ public:
     QString getUuid() const;
     void setUuid(const QString& uuid);
 
-    void setFieldData(QJsonObject& obj, const QString& parent);
+    void setFieldData(const QJsonObject& obj, const QString& parent);
     void setOrigin(Section*);
 
     QList<QString> getAllDependancy(QString key);
