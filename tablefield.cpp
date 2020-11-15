@@ -496,7 +496,7 @@ CharacterSheetItem* TableField::getRoot()
 #endif
 }
 
-CharacterSheetItem* TableField::getChildAt(QString id) const
+CharacterSheetItem* TableField::getChildFromId(QString id) const
 {
     return m_model->getFieldById(id);
 }

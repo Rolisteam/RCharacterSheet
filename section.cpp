@@ -57,7 +57,7 @@ CharacterSheetItem* Section::getChildAt(int i) const
     }
     return nullptr;
 }
-CharacterSheetItem* Section::getChildAt(QString key) const
+CharacterSheetItem* Section::getChildFromId(QString key) const
 {
     return m_dataHash.value(key);
 }
@@ -275,7 +275,7 @@ void Section::setOrig(CharacterSheetItem* orig)
         auto value= m_dataHash.value(key);
         if(nullptr != value)
         {
-            auto field= orig->getChildAt(key);
+            auto field= orig->getChildFromId(key);
             if(nullptr != field)
             {
                 value->setOrig(field);
@@ -312,9 +312,9 @@ void Section::buildDataInto(CharacterSheet* character)
             }
             else if(CharacterSheetItem::TableItem == childItem->getItemType())
             {
-                TableField* field= new TableField(false);
-                field->copyField(childItem, false);
-                newItem= field;
+                TableField* tablefield= new TableField(false);
+                tablefield->copyField(childItem, false);
+                newItem= tablefield;
             }
 
             if(nullptr != newItem)

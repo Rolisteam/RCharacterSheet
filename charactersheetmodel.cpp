@@ -396,7 +396,7 @@ void CharacterSheetModel::addSubChildRoot(CharacterSheetItem* item)
     if(!m_rootSection)
         return;
 
-    auto parentItem= m_rootSection->getChildAt(item->getPath());
+    auto parentItem= m_rootSection->getChildFromId(item->getPath());
     auto r= m_rootSection->indexOfChild(parentItem);
     auto structTable= dynamic_cast<TableField*>(parentItem);
     if(structTable == nullptr)
@@ -415,7 +415,7 @@ void CharacterSheetModel::addSubChild(CharacterSheet* sheet, CharacterSheetItem*
         return;
 
     auto c= m_characterList->indexOf(sheet) + 1;
-    auto parentItem= m_rootSection->getChildAt(item->getPath());
+    auto parentItem= m_rootSection->getChildFromId(item->getPath());
     auto r= m_rootSection->indexOfChild(parentItem);
     auto table= dynamic_cast<TableField*>(item);
     auto structTable= dynamic_cast<TableField*>(parentItem);
@@ -551,7 +551,7 @@ void CharacterSheetModel::addSection()
 CharacterSheetItem* CharacterSheetModel::addSection(QString title)
 {
     beginInsertRows(QModelIndex(), m_rootSection->getChildrenCount(), m_rootSection->getChildrenCount());
-    Section* rootSection= static_cast<Section*>(m_rootSection);
+    Section* rootSection= m_rootSection;
     Section* sec= new Section();
     sec->setLabel(title);
     sec->setId(tr("Section_%1").arg(m_rootSection->getChildrenCount() + 1));

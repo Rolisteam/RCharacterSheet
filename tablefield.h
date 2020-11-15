@@ -141,7 +141,7 @@ public:
     /// Overriden from charactersheetitem
     virtual bool hasChildren() override;
     virtual int getChildrenCount() const override;
-    virtual CharacterSheetItem* getChildAt(QString) const override;
+    virtual CharacterSheetItem* getChildFromId(QString) const override;
     virtual CharacterSheetItem* getChildAt(int) const override;
     virtual void save(QJsonObject& json, bool exp= false) override;
     virtual void load(const QJsonObject& json, EditorController* ctrl) override;

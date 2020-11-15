@@ -197,10 +197,10 @@ void Field::setValueFrom(CharacterSheetItem::ColumnId id, QVariant var)
         }
         break;
     case BORDER:
-        m_border= (BorderLine)var.toInt();
+        m_border= static_cast<BorderLine>(var.toInt());
         break;
     case TEXT_ALIGN:
-        m_textAlign= (TextAlign)var.toInt();
+        m_textAlign= static_cast<TextAlign>(var.toInt());
         break;
     case BGCOLOR:
         m_bgColor= var.value<QColor>();
@@ -291,7 +291,7 @@ void Field::setClippedText(bool clippedText)
     m_clippedText= clippedText;
 }
 
-CharacterSheetItem* Field::getChildAt(QString) const
+CharacterSheetItem* Field::getChildFromId(QString) const
 {
     return nullptr;
 }

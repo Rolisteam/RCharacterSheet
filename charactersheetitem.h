@@ -107,7 +107,7 @@ public:
      * @brief getChildAt
      * @return
      */
-    virtual CharacterSheetItem* getChildAt(QString) const= 0;
+    virtual CharacterSheetItem* getChildFromId(QString) const= 0;
     /**
      * @brief getChildAt
      * @return
